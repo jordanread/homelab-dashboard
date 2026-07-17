@@ -1,0 +1,27 @@
+@page "/Error"
+@using System.Diagnostics
+
+<PageTitle>Error — The Hold</PageTitle>
+
+<div class="detail-body" style="text-align:center;">
+    <h1>⚓ Something took on water</h1>
+    <p style="color: var(--text-secondary); margin-top: 1rem;">An error occurred while processing your request.</p>
+    @if (ShowRequestId)
+    {
+        <p class="mono" style="color: var(--text-muted); margin-top: 0.5rem;">Request ID: @RequestId</p>
+    }
+    <p style="margin-top: 1.5rem;"><a href="/">Back to The Hold</a></p>
+</div>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    private string? RequestId { get; set; }
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized()
+    {
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+    }
+}

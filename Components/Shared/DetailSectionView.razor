@@ -1,0 +1,44 @@
+@* Renders one .detail-section block: heading + paragraphs/list/code/tip, matching the original static markup. *@
+
+<div class="detail-section">
+    <h2>@Section.Heading</h2>
+
+    @foreach (var p in Section.Paragraphs)
+    {
+        <p>@((MarkupString)p)</p>
+    }
+
+    @if (Section.BulletList is { Count: > 0 })
+    {
+        <ul>
+            @foreach (var item in Section.BulletList)
+            {
+                <li>@((MarkupString)item)</li>
+            }
+        </ul>
+    }
+
+    @if (Section.NumberedList is { Count: > 0 })
+    {
+        <ol>
+            @foreach (var item in Section.NumberedList)
+            {
+                <li>@((MarkupString)item)</li>
+            }
+        </ol>
+    }
+
+    @if (!string.IsNullOrEmpty(Section.CodeBlock))
+    {
+        <div class="code-block">@Section.CodeBlock</div>
+    }
+
+    @if (!string.IsNullOrEmpty(Section.TipBody))
+    {
+        <div class="tip-box"><strong>@Section.TipLabel</strong> @((MarkupString)Section.TipBody)</div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public required DetailSection Section { get; set; }
+}

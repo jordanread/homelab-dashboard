@@ -1,0 +1,46 @@
+@page "/services/{Slug}"
+@inject IServiceCatalog Catalog
+
+<PageTitle>@(_service?.Name ?? "Not found") — The Hold</PageTitle>
+
+@if (_service is null)
+{
+    <div class="detail-body" style="text-align:center;">
+        <h1>⚓ Unknown service</h1>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">"@Slug" isn't on the deck. <a href="/#services">Back to the Deck</a>.</p>
+    </div>
+}
+else
+{
+    <div class="detail-hero">
+        <div class="detail-hero-inner">
+            <div class="detail-icon">@_service.Icon</div>
+            <div class="detail-content">
+                <h1>@_service.Name</h1>
+                <p>@_service.HeroDescription</p>
+                @if (!string.IsNullOrEmpty(_service.LaunchUrl))
+                {
+                    <a href="@_service.LaunchUrl" target="_blank" class="detail-launch-btn">↗ Open @_service.Name</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-body">
+        @foreach (var section in _service.Sections)
+        {
+            <DetailSectionView Section="section" />
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = "";
+
+    private ServiceInfo? _service;
+
+    protected override void OnParametersSet()
+    {
+        _service = Catalog.BySlug(Slug);
+    }
+}

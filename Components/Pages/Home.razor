@@ -1,0 +1,142 @@
+@page "/"
+@inject IDashboardStatsProvider StatsProvider
+@inject IServiceCatalog Catalog
+
+<PageTitle>The Hold — Homelab Dashboard</PageTitle>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Homelab · Local Network · Private</div>
+        <div id="heroShip" style="font-size:5rem; margin-bottom: 0.5rem; display:inline-block;">⚓</div>
+        <h1 class="hero-title">The Hold</h1>
+        <p class="hero-subtitle">Your private ship, in harbour. All services running local &amp; sovereign.</p>
+        <div class="hero-status">
+            <span class="status-dot"></span>
+            All Systems Operational · thehold.lan
+        </div>
+    </div>
+    <div class="hero-waves">
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,50 C180,100 360,0 540,50 C720,100 900,0 1080,50 C1260,100 1350,30 1440,50 L1440,100 L0,100 Z" />
+        </svg>
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,70 C240,20 480,100 720,60 C960,20 1200,80 1440,50 L1440,100 L0,100 Z" />
+        </svg>
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,40 C300,90 600,10 900,55 C1100,85 1300,25 1440,60 L1440,100 L0,100 Z" />
+        </svg>
+    </div>
+</section>
+
+@if (_stats is null)
+{
+    <section class="section" id="stats" data-section="stats">
+        <div class="section-inner"><p style="color: var(--text-muted);">Loading the ship's log&hellip;</p></div>
+    </section>
+}
+else
+{
+    <section class="section" id="stats" data-section="stats">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div>
+                    <span class="section-label">Ship's Log</span>
+                    <h2 class="section-title">Fleet Status</h2>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">📽 Media Library</h3>
+            <div class="stats-grid" style="margin-bottom: 2.5rem;">
+                @for (var i = 0; i < _stats.MediaStats.Count; i++)
+                {
+                    <StatCard Data="_stats.MediaStats[i]" DelayIndex="i" />
+                }
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">🌐 Network</h3>
+            <div class="stats-grid" style="margin-bottom: 2.5rem;">
+                @for (var i = 0; i < _stats.NetworkStats.Count; i++)
+                {
+                    <StatCard Data="_stats.NetworkStats[i]" DelayIndex="i" />
+                }
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">💾 Storage</h3>
+            <div class="disk-container stat-card fade-in" style="text-align: left; padding: 1.75rem;">
+                <Gauge Percent="_stats.Disk.UsedPercent" />
+                <div class="disk-details">
+                    <div class="disk-detail-row"><span class="disk-detail-label">Total</span><span class="disk-detail-value">@_stats.Disk.Total</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Used</span><span class="disk-detail-value">@_stats.Disk.Used</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Free</span><span class="disk-detail-value" style="color: var(--accent-green);">@_stats.Disk.Free</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Mount</span><span class="disk-detail-value mono">@_stats.Disk.Mount</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Type</span><span class="disk-detail-value mono">@_stats.Disk.FsType</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<RopeDivider />
+
+<section class="section" id="services" data-section="services">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <div>
+                <span class="section-label">On Deck</span>
+                <h2 class="section-title">Running Services</h2>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Space Mono', monospace;">All services via caddy.lan reverse proxy</p>
+        </div>
+
+        <div class="services-grid">
+            @for (var i = 0; i < Catalog.All.Count; i++)
+            {
+                <ServiceCard Service="Catalog.All[i]" DelayIndex="i" />
+            }
+        </div>
+    </div>
+</section>
+
+<RopeDivider Reverse="true" />
+
+<section class="section" id="admiral" data-section="admiral">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <div>
+                <span class="section-label">For the Admiral</span>
+                <h2 class="section-title">Quick Start</h2>
+            </div>
+        </div>
+
+        <div class="admiral-section fade-in">
+            <p style="color: var(--text-secondary); font-size: 1rem; max-width: 600px;">
+                Everything you need, one tap away. These are the most-used services, organized for quick access from your phone.
+            </p>
+
+            <div class="admiral-grid">
+                <AdmiralCard Href="http://photos.lan" Icon="📷" Name="Photos" Description="Browse & backup photos · Immich" />
+                <AdmiralCard Href="http://books.lan" Icon="📚" Name="Books" Description="Browse the library · Calibre-Web" />
+                <AdmiralCard Href="http://abs.lan" Icon="🎧" Name="Audiobooks" Description="Listen & track progress · ABS" />
+                <AdmiralCard Href="http://notes.lan" Icon="📝" Name="Notes & Lists" Description="Shared notes with Jordan · Joplin" />
+                <AdmiralCard Href="http://cloud.lan" Icon="☁️" Name="Files" Description="Sync & share files · Nextcloud" />
+                <AdmiralCard Href="http://draw.lan" Icon="🖊️" Name="Whiteboard" Description="Sketch & brainstorm · Whiteboard" />
+                <AdmiralCard Href="http://spacedeck.lan" Icon="🗂️" Name="Decks" Description="Visual presentations · Spacedeck" />
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <strong>📱 On your phone:</strong> Make sure you're on the home Wi-Fi (or Tailscale). Add this page to your home screen for one-tap access. iOS: Share → Add to Home Screen. Android: ⋮ → Add to Home Screen.
+            </div>
+        </div>
+    </div>
+</section>
+
+<RopeDivider />
+
+
+@code {
+    private DashboardStats? _stats;
+    protected override async Task OnInitializedAsync()
+    {
+        _stats = await StatsProvider.GetStatsAsync();
+    }
+}

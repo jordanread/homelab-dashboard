@@ -3,70 +3,89 @@
    Nautical · Dark/Light · Responsive
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cinzel+Decorative:wght@400;700;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 /* ---- CSS Variables ---- */
 :root {
-  /* Dark mode (default) */
-  --bg-primary: #0b1220;
-  --bg-secondary: #111c2e;
-  --bg-card: #152030;
-  --bg-card-hover: #1a2840;
-  --bg-glass: rgba(21, 32, 48, 0.85);
+  /* Flomads nautical token system */
+  --navy:       #0d1f35;
+  --navy-mid:   #152d4a;
+  --navy-light: #1e3f63;
+  --cream:      #f5ead8;
+  --cream-dim:  #d4c4a8;
+  --gold:       #c9922a;
+  --gold-light: #e8b84b;
+  --red:        #c0392b;
+  --red-bright: #e74c3c;
+  --white:      #ffffff;
+  --text-main:  #f5ead8;
+  --text-muted-token: #a89b85;
+  --border-token: rgba(201,146,42,0.25);
 
-  --text-primary: #e8edf5;
-  --text-secondary: #8fa5c0;
-  --text-muted: #4a6080;
-  --text-accent: #5bb8d4;
+  --font-display: 'Playfair Display';
+  --font-deco:    'Cinzel Decorative';
+  --font-body:    'DM Sans';
 
-  --accent-teal: #5bb8d4;
-  --accent-gold: #c9a84c;
-  --accent-coral: #e07b6a;
-  --accent-green: #5dba8a;
-  --accent-purple: #8b6fbf;
+  --radius: 6px;
+  --radius-lg: 14px;
+  --transition: 0.3s ease;
+  --max-w: 1140px;
+  --section-pad: 5rem 1.5rem;
 
-  --border-color: rgba(91, 184, 212, 0.15);
-  --border-bright: rgba(91, 184, 212, 0.4);
+  /* Dark mode (default) — mapped onto the token system above */
+  --bg-primary: var(--navy);
+  --bg-secondary: var(--navy-mid);
+  --bg-card: var(--navy-mid);
+  --bg-card-hover: var(--navy-light);
+  --bg-glass: rgba(13, 31, 53, 0.85);
+
+  --text-primary: var(--text-main);
+  --text-secondary: var(--cream-dim);
+  --text-muted: var(--text-muted-token);
+  --text-accent: var(--gold-light);
+
+  --accent-teal: var(--gold-light);
+  --accent-gold: var(--gold);
+  --accent-coral: var(--red-bright);
+  --accent-green: var(--gold-light);
+  --accent-purple: var(--red);
+
+  --border-color: var(--border-token);
+  --border-bright: rgba(201, 146, 42, 0.5);
   --shadow-deep: 0 8px 32px rgba(0, 0, 0, 0.6);
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 20px rgba(91, 184, 212, 0.15);
+  --shadow-glow: 0 0 20px rgba(201, 146, 42, 0.18);
 
-  --rope-color: rgba(201, 168, 76, 0.3);
+  --rope-color: rgba(201, 146, 42, 0.3);
 
   --nav-height: 64px;
-  --radius: 8px;
-  --radius-lg: 16px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Wave SVG data */
-  --wave-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%230b1220' d='M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E");
 }
 
 [data-theme="light"] {
-  --bg-primary: #f0f4f8;
-  --bg-secondary: #e2eaf2;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f7fafd;
+  --bg-primary: var(--cream);
+  --bg-secondary: var(--cream-dim);
+  --bg-card: var(--white);
+  --bg-card-hover: #fbf3e4;
   --bg-glass: rgba(255, 255, 255, 0.88);
 
-  --text-primary: #1a2840;
-  --text-secondary: #3d5a7a;
-  --text-muted: #7a9ab5;
-  --text-accent: #1a7fa0;
+  --text-primary: var(--navy);
+  --text-secondary: var(--navy-mid);
+  --text-muted: rgba(13, 31, 53, 0.55);
+  --text-accent: var(--gold);
 
-  --accent-teal: #1a7fa0;
-  --accent-gold: #a07820;
-  --accent-coral: #c0503a;
-  --accent-green: #2a8a5a;
-  --accent-purple: #6040a0;
+  --accent-teal: var(--gold);
+  --accent-gold: #a3720f;
+  --accent-coral: var(--red);
+  --accent-green: var(--gold);
+  --accent-purple: var(--red-bright);
 
-  --border-color: rgba(26, 127, 160, 0.2);
-  --border-bright: rgba(26, 127, 160, 0.5);
-  --shadow-deep: 0 8px 32px rgba(0, 0, 0, 0.15);
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 0 20px rgba(26, 127, 160, 0.12);
+  --border-color: rgba(13, 31, 53, 0.15);
+  --border-bright: rgba(201, 146, 42, 0.55);
+  --shadow-deep: 0 8px 32px rgba(13, 31, 53, 0.15);
+  --shadow-card: 0 4px 20px rgba(13, 31, 53, 0.08);
+  --shadow-glow: 0 0 20px rgba(201, 146, 42, 0.15);
 
-  --rope-color: rgba(160, 120, 32, 0.25);
+  --rope-color: rgba(163, 114, 15, 0.3);
 }
 
 /* ---- Reset & Base ---- */
@@ -75,7 +94,7 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  font-family: 'Crimson Pro', Georgia, serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -85,7 +104,7 @@ body {
 }
 
 /* ---- Typography ---- */
-h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+h1, h2, h3 { font-family: var(--font-display), Georgia, serif; line-height: 1.2; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
 h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
 h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
@@ -122,7 +141,7 @@ a:hover { color: var(--accent-gold); }
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -596,7 +615,7 @@ a:hover { color: var(--accent-gold); }
 }
 
 .service-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -792,7 +811,7 @@ a:hover { color: var(--accent-gold); }
    ADMIRAL'S QUICK START
    ============================================ */
 .admiral-section {
-  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(91, 184, 212, 0.05) 100%);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201, 146, 42, 0.06) 100%);
   border: 1px solid var(--border-bright);
   border-radius: var(--radius-lg);
   padding: 2rem;
@@ -837,7 +856,7 @@ a:hover { color: var(--accent-gold); }
 
 .admiral-card-icon { font-size: 2rem; }
 .admiral-card-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), serif;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -876,7 +895,7 @@ footer {
 
 footer .footer-brand {
   font-size: 0.9rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), serif;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
@@ -982,7 +1001,7 @@ footer .footer-brand {
 }
 
 .tip-box {
-  background: rgba(91, 184, 212, 0.08);
+  background: rgba(201, 146, 42, 0.08);
   border-left: 3px solid var(--accent-teal);
   border-radius: 0 var(--radius) var(--radius) 0;
   padding: 1rem 1.25rem;
@@ -1090,9 +1109,9 @@ footer .footer-brand {
   font-size: 0.65rem;
   padding: 0.15rem 0.5rem;
   border-radius: 100px;
-  background: rgba(93, 186, 138, 0.15);
+  background: rgba(232, 184, 75, 0.15);
   color: var(--accent-green);
-  border: 1px solid rgba(93, 186, 138, 0.3);
+  border: 1px solid rgba(232, 184, 75, 0.3);
   margin-top: 0.3rem;
   white-space: nowrap;
 }

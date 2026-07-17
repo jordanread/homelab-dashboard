@@ -1,0 +1,27 @@
+@* A single "Ship's Log" stat tile — count-up animates in via JS when scrolled into view. *@
+
+<div class="stat-card fade-in @DelayClass" style="--card-accent: var(--accent-@Data.AccentToken);">
+    <span class="stat-icon">@Data.Icon</span>
+    <span class="stat-value">
+        <span class="count-target" data-count="@Data.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)" data-suffix="@Data.Suffix">0@(Data.Suffix)</span>
+    </span>
+    <span class="stat-label">@Data.Label</span>
+    @if (!string.IsNullOrEmpty(Data.DeltaLabel))
+    {
+        <div class="delta-badge">@Data.DeltaLabel</div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public required StatCardData Data { get; set; }
+    /// <summary>0-3, cycles the fade-in-delay-N classes like the original grid did.</summary>
+    [Parameter] public int DelayIndex { get; set; }
+
+    private string DelayClass => (DelayIndex % 4) switch
+    {
+        1 => "fade-in-delay-1",
+        2 => "fade-in-delay-2",
+        3 => "fade-in-delay-3",
+        _ => ""
+    };
+}

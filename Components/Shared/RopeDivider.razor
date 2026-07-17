@@ -1,0 +1,20 @@
+@* Decorative rope-stitch divider between sections. Pass Reverse to flip the curve. *@
+
+<div class="rope-divider" aria-hidden="true">
+    @if (Reverse)
+    {
+        <svg viewBox="0 0 1440 24" preserveAspectRatio="none">
+            <path d="M0,12 C120,20 240,4 360,12 C480,20 600,4 720,12 C840,20 960,4 1080,12 C1200,20 1320,4 1440,12" />
+        </svg>
+    }
+    else
+    {
+        <svg viewBox="0 0 1440 24" preserveAspectRatio="none">
+            <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" />
+        </svg>
+    }
+</div>
+
+@code {
+    [Parameter] public bool Reverse { get; set; }
+}
