@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pi-hole — The Hold</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="anchor-icon">⚓</span> The Hold</a>
+  <ul class="nav-links"><li><a href="../index.html#services">← Back to Deck</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle">☀️</button>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="../index.html">🏠 Home</a>
+  <a href="../index.html#services">🚢 Back to Deck</a>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-hero-inner">
+    <div class="detail-icon">🛡️</div>
+    <div class="detail-content">
+      <h1>Pi-hole</h1>
+      <p>Network-wide DNS-based ad blocker. Blocks ads, trackers, and malicious domains for every device on the LAN.</p>
+      <a href="http://pihole.lan/admin" target="_blank" class="detail-launch-btn">↗ Open Pi-hole Admin</a>
+    </div>
+  </div>
+</div>
+
+<div class="detail-body">
+
+  <div class="detail-section">
+    <h2>What it does</h2>
+    <p>Pi-hole acts as a DNS sinkhole for the entire network. When any device makes a DNS request for an ad-serving or tracking domain, Pi-hole returns a null response instead — the ad simply never loads. Unlike browser extensions, Pi-hole works on every device: smart TVs, phones, IoT devices, game consoles — anything on your network.</p>
+  </div>
+
+  <div class="detail-section">
+    <h2>Key features in use</h2>
+    <ul>
+      <li><strong>Blocklists</strong> — multiple community-maintained lists covering ads, tracking, malware, and telemetry domains.</li>
+      <li><strong>Local DNS</strong> — resolves all <code>*.lan</code> hostnames to the Pi's IP address so Caddy can route them.</li>
+      <li><strong>DHCP</strong> — optionally serves as DHCP server so all devices automatically get Pi-hole as their DNS.</li>
+      <li><strong>Query log</strong> — real-time view of every DNS query on the network with allow/block controls.</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h2>Setting Pi-hole as your DNS</h2>
+    <p>The easiest method is to set it at the router level so all devices automatically use it:</p>
+    <div class="code-block">Router DHCP Settings → DNS Server → 192.168.1.x (your Pi's IP)</div>
+    <p>Alternatively, set it per device in the network settings. On iOS: Settings → Wi-Fi → tap your network → Configure DNS → Manual → add the Pi's IP.</p>
+    <div class="tip-box"><strong>Important:</strong> You must use Pi-hole as DNS to resolve <code>*.lan</code> hostnames. Without it, all the Caddy-proxied services will be unreachable by name.</div>
+  </div>
+
+  <div class="detail-section">
+    <h2>Adding local DNS records</h2>
+    <p>Add one record per service so hostnames resolve to the Pi (where Caddy is listening):</p>
+    <div class="code-block">Pi-hole Admin → Settings → Local DNS → DNS Records
+
+Domain              IP
+──────────────────────────────
+thehold.lan         192.168.1.x
+pihole.lan          192.168.1.x
+abs.lan             192.168.1.x
+books.lan           192.168.1.x
+notes.lan           192.168.1.x
+cloud.lan           192.168.1.x
+sync.lan            192.168.1.x
+photos.lan          192.168.1.x
+draw.lan            192.168.1.x
+spacedeck.lan       192.168.1.x</div>
+  </div>
+
+  <div class="detail-section">
+    <h2>Temporarily disabling</h2>
+    <p>If something is being incorrectly blocked, you can pause Pi-hole from the admin dashboard for 5, 30, or 300 seconds without stopping the container. A whitelist entry is usually a better long-term solution.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">⚓ The Hold</div>
+  <div>Private · Local Only · thehold.lan</div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

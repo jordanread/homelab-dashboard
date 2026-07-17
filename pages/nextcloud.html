@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextcloud — The Hold</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="anchor-icon">⚓</span> The Hold</a>
+  <ul class="nav-links"><li><a href="../index.html#services">← Back to Deck</a></li></ul>
+  <div class="nav-right"><button class="theme-toggle" id="themeToggle">☀️</button><button class="hamburger" id="hamburger">☰</button></div>
+</nav>
+<nav class="mobile-nav" id="mobileNav"><a href="../index.html">🏠 Home</a><a href="../index.html#services">🚢 Back to Deck</a></nav>
+<div class="detail-hero">
+  <div class="detail-hero-inner">
+    <div class="detail-icon">☁️</div>
+    <div class="detail-content">
+      <h1>Nextcloud</h1>
+      <p>Your de-Googled cloud. Files, calendar, contacts, and more — entirely self-hosted.</p>
+      <a href="http://cloud.lan" target="_blank" class="detail-launch-btn">↗ Open Nextcloud</a>
+    </div>
+  </div>
+</div>
+<div class="detail-body">
+  <div class="detail-section">
+    <h2>What it does</h2>
+    <p>Nextcloud is the Swiss Army knife of self-hosting. It replaces Google Drive (file sync), Google Calendar, Google Contacts, and Google Photos — all from your Pi. Files sync across devices via the desktop and mobile apps, calendars and contacts sync via CalDAV/CardDAV, and the web interface provides a full file manager.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Mobile setup — Files</h2>
+    <ol>
+      <li>Install the <strong>Nextcloud</strong> app (iOS/Android).</li>
+      <li>Server URL: <code>http://cloud.lan</code></li>
+      <li>Log in with your credentials.</li>
+      <li>Enable <strong>Auto Upload</strong> in the app to automatically back up photos (though Immich does this better).</li>
+    </ol>
+  </div>
+  <div class="detail-section">
+    <h2>Calendar &amp; Contacts sync</h2>
+    <p>Nextcloud supports CalDAV and CardDAV, which means your phone's native calendar and contacts apps can sync to it directly.</p>
+    <div class="code-block"># CalDAV (Calendar)
+Server: http://cloud.lan/remote.php/dav
+
+# CardDAV (Contacts)
+Server: http://cloud.lan/remote.php/dav</div>
+    <div class="tip-box"><strong>iOS:</strong> Settings → Mail → Accounts → Add Account → Other → Add CalDAV Account. Use the URL above and your Nextcloud credentials.</div>
+  </div>
+  <div class="detail-section">
+    <h2>Nextcloud apps to enable</h2>
+    <ul>
+      <li><strong>Calendar</strong> — Full calendar app in the browser.</li>
+      <li><strong>Contacts</strong> — Address book management.</li>
+      <li><strong>Tasks</strong> — To-do lists that sync via CalDAV.</li>
+      <li><strong>Notes</strong> — Simple markdown notes (lighter than Joplin).</li>
+      <li><strong>Talk</strong> — Private chat and video calls on-network.</li>
+    </ul>
+  </div>
+</div>
+<footer><div class="footer-brand">⚓ The Hold</div><div>Private · Local Only · thehold.lan</div></footer>
+<script src="../js/main.js"></script>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Immich — The Hold</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="anchor-icon">⚓</span> The Hold</a>
+  <ul class="nav-links"><li><a href="../index.html#services">← Back to Deck</a></li></ul>
+  <div class="nav-right"><button class="theme-toggle" id="themeToggle">☀️</button><button class="hamburger" id="hamburger">☰</button></div>
+</nav>
+<nav class="mobile-nav" id="mobileNav"><a href="../index.html">🏠 Home</a><a href="../index.html#services">🚢 Back to Deck</a></nav>
+<div class="detail-hero">
+  <div class="detail-hero-inner">
+    <div class="detail-icon">📷</div>
+    <div class="detail-content">
+      <h1>Immich</h1>
+      <p>High-performance self-hosted photo and video backup with face recognition, map view, and mobile apps.</p>
+      <a href="http://photos.lan" target="_blank" class="detail-launch-btn">↗ Open Immich</a>
+    </div>
+  </div>
+</div>
+<div class="detail-body">
+  <div class="detail-section">
+    <h2>What it does</h2>
+    <p>Immich is your private Google Photos replacement. The mobile app automatically backs up every photo and video on your phone to the Pi. From there, you get face recognition, location map view, smart albums, sharing, and a beautiful timeline UI — all without a single photo leaving your network.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Setting up the mobile app</h2>
+    <ol>
+      <li>Install <strong>Immich</strong> from your app store.</li>
+      <li>Server URL: <code>http://photos.lan</code> (on home Wi-Fi) or Tailscale IP when away.</li>
+      <li>Log in with your credentials.</li>
+      <li>Go to <strong>Settings → Background backup</strong> and enable it.</li>
+      <li>Your photos will start uploading immediately. First backup may take a while!</li>
+    </ol>
+    <div class="tip-box"><strong>Tip for the Admiral:</strong> Enable <em>Backup over mobile data</em> in the app settings if you want photos backed up even when you're not on Wi-Fi (uses mobile data). Otherwise backup happens automatically on home Wi-Fi.</div>
+  </div>
+  <div class="detail-section">
+    <h2>Shared albums</h2>
+    <p>Both Jordan and the Admiral can create shared albums visible to the other user. Perfect for trip collections — create an album for "Shropshire 2026" and add to it from either phone.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Memory Lane</h2>
+    <p>Immich surfaces "On This Day" memories from previous years — a lovely feature for full-time travelers with years of photos from around the world.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Storage</h2>
+    <div class="code-block">Photos stored at: /mnt/data/immich/
+Thumbnails:      /mnt/data/immich/thumbs/
+Encoded video:   /mnt/data/immich/encoded-video/</div>
+  </div>
+</div>
+<footer><div class="footer-brand">⚓ The Hold</div><div>Private · Local Only · thehold.lan</div></footer>
+<script src="../js/main.js"></script>
+</body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calibre-Web — The Hold</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="anchor-icon">⚓</span> The Hold</a>
+  <ul class="nav-links"><li><a href="../index.html#services">← Back to Deck</a></li></ul>
+  <div class="nav-right"><button class="theme-toggle" id="themeToggle">☀️</button><button class="hamburger" id="hamburger">☰</button></div>
+</nav>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="../index.html">🏠 Home</a><a href="../index.html#services">🚢 Back to Deck</a>
+</nav>
+<div class="detail-hero">
+  <div class="detail-hero-inner">
+    <div class="detail-icon">📚</div>
+    <div class="detail-content">
+      <h1>Calibre-Web</h1>
+      <p>Clean web interface for your Calibre eBook library. Browse, read, download, and send books to your reader.</p>
+      <a href="http://books.lan" target="_blank" class="detail-launch-btn">↗ Open Calibre-Web</a>
+    </div>
+  </div>
+</div>
+<div class="detail-body">
+  <div class="detail-section">
+    <h2>What it does</h2>
+    <p>Calibre-Web serves your existing Calibre library through a beautiful browser interface. It supports EPUB reading in-browser, downloading books in multiple formats, and sending directly to a Kindle email address. Think of it as a private Goodreads + lending library, served entirely from your Pi.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Reading on your devices</h2>
+    <ul>
+      <li><strong>Browser</strong> — Open <a href="http://books.lan" target="_blank">books.lan</a> and use the built-in EPUB reader.</li>
+      <li><strong>Download</strong> — Download any book and open in Moon+ Reader, KOReader, Apple Books, etc.</li>
+      <li><strong>Kindle</strong> — Set your Kindle email in your profile settings and use the "Send to Kindle" button.</li>
+      <li><strong>OPDS</strong> — Compatible OPDS clients (Kybook, PocketBook) can subscribe to <code>books.lan/opds</code>.</li>
+    </ul>
+  </div>
+  <div class="detail-section">
+    <h2>Searching &amp; browsing</h2>
+    <p>Books are searchable by title, author, series, tag, and language. The shelf view shows recently added books on the home page. Use the sidebar filters to browse by genre or format.</p>
+  </div>
+  <div class="detail-section">
+    <h2>Adding books</h2>
+    <p>Use the full Calibre desktop app (on any machine with the library mounted or synced) to add, tag, and edit metadata. Calibre-Web reads the library database directly — changes in Calibre appear in Calibre-Web after a library refresh.</p>
+    <div class="code-block">Library path: /mnt/data/calibre-library/
+Database:     metadata.db (managed by Calibre)</div>
+  </div>
+</div>
+<footer><div class="footer-brand">⚓ The Hold</div><div>Private · Local Only · thehold.lan</div></footer>
+<script src="../js/main.js"></script>
+</body></html>
