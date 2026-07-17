@@ -1,0 +1,262 @@
+@page "/"
+@inject IDashboardStatsProvider StatsProvider
+@inject IServiceCatalog Catalog
+
+<PageTitle>The Hold — Homelab Dashboard</PageTitle>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Homelab · Local Network · Private</div>
+        <div id="heroShip" style="font-size:5rem; margin-bottom: 0.5rem; display:inline-block;">⚓</div>
+        <h1 class="hero-title">The Hold</h1>
+        <p class="hero-subtitle">Your private ship, in harbour. All services running local &amp; sovereign.</p>
+        <div class="hero-status">
+            <span class="status-dot"></span>
+            All Systems Operational · thehold.lan
+        </div>
+    </div>
+    <div class="hero-waves">
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,50 C180,100 360,0 540,50 C720,100 900,0 1080,50 C1260,100 1350,30 1440,50 L1440,100 L0,100 Z" />
+        </svg>
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,70 C240,20 480,100 720,60 C960,20 1200,80 1440,50 L1440,100 L0,100 Z" />
+        </svg>
+        <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave-path" d="M0,40 C300,90 600,10 900,55 C1100,85 1300,25 1440,60 L1440,100 L0,100 Z" />
+        </svg>
+    </div>
+</section>
+
+@if (_stats is null)
+{
+    <section class="section" id="stats" data-section="stats">
+        <div class="section-inner"><p style="color: var(--text-muted);">Loading the ship's log&hellip;</p></div>
+    </section>
+}
+else
+{
+    <section class="section" id="stats" data-section="stats">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div>
+                    <span class="section-label">Ship's Log</span>
+                    <h2 class="section-title">Fleet Status</h2>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">📽 Media Library</h3>
+            <div class="stats-grid" style="margin-bottom: 2.5rem;">
+                @for (var i = 0; i < _stats.MediaStats.Count; i++)
+                {
+                    <StatCard Data="_stats.MediaStats[i]" DelayIndex="i" />
+                }
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">🌐 Network</h3>
+            <div class="stats-grid" style="margin-bottom: 2.5rem;">
+                @for (var i = 0; i < _stats.NetworkStats.Count; i++)
+                {
+                    <StatCard Data="_stats.NetworkStats[i]" DelayIndex="i" />
+                }
+            </div>
+
+            <h3 style="margin-bottom:1rem; color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400;">💾 Storage</h3>
+            <div class="disk-container stat-card fade-in" style="text-align: left; padding: 1.75rem;">
+                <Gauge Percent="_stats.Disk.UsedPercent" />
+                <div class="disk-details">
+                    <div class="disk-detail-row"><span class="disk-detail-label">Total</span><span class="disk-detail-value">@_stats.Disk.Total</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Used</span><span class="disk-detail-value">@_stats.Disk.Used</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Free</span><span class="disk-detail-value" style="color: var(--accent-green);">@_stats.Disk.Free</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Mount</span><span class="disk-detail-value mono">@_stats.Disk.Mount</span></div>
+                    <div class="disk-detail-row"><span class="disk-detail-label">Type</span><span class="disk-detail-value mono">@_stats.Disk.FsType</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<RopeDivider />
+
+<section class="section" id="services" data-section="services">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <div>
+                <span class="section-label">On Deck</span>
+                <h2 class="section-title">Running Services</h2>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Space Mono', monospace;">All services via caddy.lan reverse proxy</p>
+        </div>
+
+        <div class="services-grid">
+            @for (var i = 0; i < Catalog.All.Count; i++)
+            {
+                <ServiceCard Service="Catalog.All[i]" DelayIndex="i" />
+            }
+        </div>
+    </div>
+</section>
+
+<RopeDivider Reverse="true" />
+
+<section class="section" id="admiral" data-section="admiral">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <div>
+                <span class="section-label">For the Admiral</span>
+                <h2 class="section-title">Quick Start</h2>
+            </div>
+        </div>
+
+        <div class="admiral-section fade-in">
+            <p style="color: var(--text-secondary); font-size: 1rem; max-width: 600px;">
+                Everything you need, one tap away. These are the most-used services, organized for quick access from your phone.
+            </p>
+
+            <div class="admiral-grid">
+                <AdmiralCard Href="http://photos.lan" Icon="📷" Name="Photos" Description="Browse & backup photos · Immich" />
+                <AdmiralCard Href="http://books.lan" Icon="📚" Name="Books" Description="Browse the library · Calibre-Web" />
+                <AdmiralCard Href="http://abs.lan" Icon="🎧" Name="Audiobooks" Description="Listen & track progress · ABS" />
+                <AdmiralCard Href="http://notes.lan" Icon="📝" Name="Notes & Lists" Description="Shared notes with Jordan · Joplin" />
+                <AdmiralCard Href="http://cloud.lan" Icon="☁️" Name="Files" Description="Sync & share files · Nextcloud" />
+                <AdmiralCard Href="http://draw.lan" Icon="🖊️" Name="Whiteboard" Description="Sketch & brainstorm · Whiteboard" />
+                <AdmiralCard Href="http://spacedeck.lan" Icon="🗂️" Name="Decks" Description="Visual presentations · Spacedeck" />
+                <AdmiralCard Href="#cert" Icon="🔐" Name="Trust Cert" Description="Install local certificate" External="false" />
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <strong>📱 On your phone:</strong> Make sure you're on the home Wi-Fi (or Tailscale). Add this page to your home screen for one-tap access. iOS: Share → Add to Home Screen. Android: ⋮ → Add to Home Screen.
+            </div>
+        </div>
+    </div>
+</section>
+
+<RopeDivider />
+
+<section class="section" id="cert" data-section="cert">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <div>
+                <span class="section-label">Local TLS</span>
+                <h2 class="section-title">Trust the Certificate</h2>
+            </div>
+        </div>
+
+        <div class="cert-card fade-in">
+            <div>
+                <div class="cert-icon">🔐</div>
+                <h3 style="margin-bottom: 0.5rem;">The Hold Local CA</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                    Caddy generates a local Certificate Authority for <code>*.lan</code> domains. Install it once per device and you'll get a green padlock on every service — no more security warnings.
+                </p>
+                <a href="/certs/thehold-ca.crt" download class="cert-download-btn">⬇ Download Certificate</a>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; font-family: 'Space Mono', monospace;">thehold-ca.crt · Local CA · Do not share externally</p>
+            </div>
+
+            <div class="cert-instructions">
+                <div class="os-tabs">
+                    @foreach (var os in _osTabs)
+                    {
+                        <button class="os-tab @(os.OsKey == _activeOs ? "active" : "")" @onclick="() => _activeOs = os.OsKey">@os.Label</button>
+                    }
+                </div>
+
+                @foreach (var os in _osTabs.Where(o => o.OsKey == _activeOs))
+                {
+                    <div class="os-instructions active">
+                        @if (os.Steps is { Count: > 0 })
+                        {
+                            <ol class="cert-steps">
+                                @foreach (var step in os.Steps)
+                                {
+                                    <li>@((MarkupString)step)</li>
+                                }
+                            </ol>
+                        }
+                        @if (!string.IsNullOrEmpty(os.CodeBlock))
+                        {
+                            <div class="code-block">@os.CodeBlock</div>
+                        }
+                        @if (!string.IsNullOrEmpty(os.Note))
+                        {
+                            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem;">@((MarkupString)os.Note)</p>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private DashboardStats? _stats;
+    private string _activeOs = "ios";
+
+    private readonly List<OsInstructions> _osTabs =
+    [
+        new OsInstructions
+        {
+            OsKey = "ios",
+            Label = "iOS",
+            Steps =
+            [
+                "Download the certificate above — tap \"Allow\" when prompted.",
+                "Go to <strong>Settings → General → VPN &amp; Device Management</strong>.",
+                "Tap the downloaded profile and tap <strong>Install</strong>. Enter your passcode.",
+                "Go to <strong>Settings → General → About → Certificate Trust Settings</strong>.",
+                "Toggle on <strong>The Hold Local CA</strong> and tap Continue."
+            ]
+        },
+        new OsInstructions
+        {
+            OsKey = "android",
+            Label = "Android",
+            Steps =
+            [
+                "Download the certificate above.",
+                "Go to <strong>Settings → Security → More security settings → Install from storage</strong> (path varies by manufacturer).",
+                "Find and select <strong>thehold-ca.crt</strong>.",
+                "Name it <em>TheHold Local CA</em> and choose <strong>CA Certificate</strong>.",
+                "Tap OK. You may need to set a screen lock if not already set."
+            ]
+        },
+        new OsInstructions
+        {
+            OsKey = "mac",
+            Label = "macOS",
+            Steps =
+            [
+                "Download and double-click <strong>thehold-ca.crt</strong> — it opens Keychain Access.",
+                "Select the <strong>System</strong> keychain and click <strong>Add</strong>.",
+                "Find <em>The Hold Local CA</em> in the list and double-click it.",
+                "Expand <strong>Trust</strong> and set <em>When using this certificate</em> to <strong>Always Trust</strong>.",
+                "Close the window and enter your password to confirm."
+            ]
+        },
+        new OsInstructions
+        {
+            OsKey = "windows",
+            Label = "Windows",
+            Steps =
+            [
+                "Download <strong>thehold-ca.crt</strong> and double-click it.",
+                "Click <strong>Install Certificate</strong>.",
+                "Choose <strong>Local Machine</strong> and click Next (requires admin).",
+                "Select <strong>Place all certificates in the following store</strong> → Browse → <strong>Trusted Root Certification Authorities</strong>.",
+                "Click Finish and confirm the security warning."
+            ]
+        },
+        new OsInstructions
+        {
+            OsKey = "linux",
+            Label = "Linux",
+            CodeBlock = "sudo cp thehold-ca.crt /usr/local/share/ca-certificates/\nsudo update-ca-certificates",
+            Note = "For Firefox on Linux, you may also need to add it in <strong>Settings → Privacy &amp; Security → Certificates → View Certificates → Authorities → Import</strong>."
+        }
+    ];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _stats = await StatsProvider.GetStatsAsync();
+    }
+}

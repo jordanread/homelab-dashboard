@@ -1,0 +1,16 @@
+@* Circular disk-usage gauge — SVG stroke animates in via JS when scrolled into view. *@
+
+<div class="gauge-wrap">
+    <svg class="gauge-svg" viewBox="0 0 120 120">
+        <circle class="gauge-bg" cx="60" cy="60" r="54" />
+        <circle class="gauge-fill" cx="60" cy="60" r="54" data-gauge="@Percent" style="stroke-dashoffset: 339.29;" />
+    </svg>
+    <div class="gauge-text">
+        <span class="gauge-pct" data-pct="@Percent">0%</span>
+        <span class="gauge-sub">used</span>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Percent { get; set; }
+}

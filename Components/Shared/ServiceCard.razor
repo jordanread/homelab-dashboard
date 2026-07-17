@@ -1,0 +1,35 @@
+@* A running "container" tile on the Deck grid. *@
+
+<div class="service-card fade-in @DelayClass" style="--service-color: var(--accent-@Service.AccentToken);">
+    <div class="service-header">
+        <div class="service-icon">@Service.Icon</div>
+        <div>
+            <div class="service-name">@Service.Name</div>
+            <div class="service-host">@Service.Host</div>
+        </div>
+        <div class="service-status">
+            <span class="status-indicator"></span>
+            @Service.Status
+        </div>
+    </div>
+    <p class="service-description">@Service.CardDescription</p>
+    <div class="service-actions">
+        @if (!string.IsNullOrEmpty(Service.LaunchUrl))
+        {
+            <a href="@Service.LaunchUrl" target="_blank" class="btn btn-primary">↗ Open</a>
+        }
+        <a href="/services/@Service.Slug" class="btn">📖 Details</a>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public required ServiceInfo Service { get; set; }
+    [Parameter] public int DelayIndex { get; set; }
+
+    private string DelayClass => (DelayIndex % 3) switch
+    {
+        1 => "fade-in-delay-1",
+        2 => "fade-in-delay-2",
+        _ => ""
+    };
+}

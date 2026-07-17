@@ -1,0 +1,6 @@
+-----BEGIN CERTIFICATE-----
+REPLACE THIS FILE WITH THE REAL CADDY LOCAL CA ROOT CERTIFICATE
+Find it on the Pi at /data/caddy/pki/authorities/local/root.crt
+and copy it here so the "Download Certificate" button on the
+Certificate section serves the real thing instead of this stub.
+-----END CERTIFICATE-----
